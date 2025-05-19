@@ -2,11 +2,12 @@ package main
 
 import (
 	"APIGetway/internal/config"
-	"fmt"
+	"APIGetway/internal/logger"
 )
 
 func main() {
 	cfg := config.MustNew()
-	fmt.Printf("%+v", cfg)
+
+	lg := logger.MustNew(cfg.Env)
 
 }
