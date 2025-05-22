@@ -2,44 +2,45 @@ package config
 
 import (
 	"log"
-	"os"
+	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 )
 
 type Config struct {
-	Env      string `envconfig:"ENV" default:"local"`
-	Auth     Auth
+	Env  string `envconfig:"ENV" default:"local"`
+	Auth Auth
+
+	Server   Server
 	Todolist Todolist
-	App      App
+	Token    Token
 }
 
 type Auth struct {
-	Addr string `envconfig:"AUTH_ADDR" required:"true"`
+	BindAddr string `envconfig:"AUTH_BIND_ADDR" required:"true"`
+}
+type Server struct {
+	BindAddr     string        `envconfig:"SERVER_BIND_ADDR" required:"true"`
+	Name         string        `envconfig:"SERVER_NAME" required:"true"`
+	WriteTimeout time.Duration `envconfig:"SERVER_WRITE_TIMEOUT" required:"true"`
 }
 type Todolist struct {
-	Addr string `envconfig:"TODOLIST_ADDR" required:"true"`
+	BindAddr string `envconfig:"TODOLIST_BIND_ADDR" required:"true"`
 }
-
-type App struct {
-	Addr          string `envconfig:"APP_ADDR" required:"true"`
-	PublicKeyPath string `envconfig:"APP_PUBLIC_KEY_PATH" required:"true"`
+type Token struct {
+	PublicKeyPath string `envconfig:"TOKEN_PUBLIC_KEY_PATH" required:"true"`
 }
 
 func MustNew() *Config {
-	cfg := new(Config)
-
-	os.Setenv("ENV", "local")
-	os.Setenv("AUTH_ADDR", ":8081")
-	os.Setenv("TODOLIST_ADDR", ":8082")
-	os.Setenv("APP_ADDR", "8080")
-	os.Setenv("APP_PUBLIC_KEY_PATH", "./../cert/public.pem")
-
-	if err := envconfig.Process("", cfg); err != nil {
-		log.Fatalf("config error: %v\n", err)
+	//TODO
+	if err := godotenv.Load("./../../.env"); err != nil {
+		log.Fatalf("failed to load configuration: %v\n", err)
 	}
-	log.Printf("config: %+v", cfg)
 
+	cfg := new(Config)
+	if err := envconfig.Process("", cfg); err != nil {
+		log.Fatalf("failed to load configuration: %v\n", err)
+	}
 	return cfg
-
 }
