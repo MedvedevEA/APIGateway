@@ -1,8 +1,8 @@
 package main
 
 import (
-	"APIGetway/internal/config"
-	"APIGetway/internal/logger"
+	"ppApiGatewayService/internal/config"
+	"ppApiGatewayService/internal/logger"
 )
 
 func main() {

@@ -9,27 +9,25 @@ import (
 )
 
 type Config struct {
-	Env  string `envconfig:"ENV" default:"local"`
-	Auth Auth
-
+	Env      string `envconfig:"ENV" default:"local"`
+	Auth     Auth
 	Server   Server
 	Todolist Todolist
-	Token    Token
 }
 
 type Auth struct {
 	BindAddr string `envconfig:"AUTH_BIND_ADDR" required:"true"`
 }
 type Server struct {
-	BindAddr     string        `envconfig:"SERVER_BIND_ADDR" required:"true"`
-	Name         string        `envconfig:"SERVER_NAME" required:"true"`
-	WriteTimeout time.Duration `envconfig:"SERVER_WRITE_TIMEOUT" required:"true"`
+	BindAddr      string        `envconfig:"SERVER_BIND_ADDR" required:"true"`
+	Name          string        `envconfig:"SERVER_NAME" required:"true"`
+	WriteTimeout  time.Duration `envconfig:"SERVER_WRITE_TIMEOUT" required:"true"`
+	PublicKeyPath string        `envconfig:"SERVER_PUBLIC_KEY_PATH" required:"true"`
 }
 type Todolist struct {
 	BindAddr string `envconfig:"TODOLIST_BIND_ADDR" required:"true"`
 }
 type Token struct {
-	PublicKeyPath string `envconfig:"TOKEN_PUBLIC_KEY_PATH" required:"true"`
 }
 
 func MustNew() *Config {
