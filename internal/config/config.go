@@ -25,14 +25,15 @@ type Server struct {
 	PublicKeyPath string        `envconfig:"SERVER_PUBLIC_KEY_PATH" required:"true"`
 }
 type Todolist struct {
-	BindAddr string `envconfig:"TODOLIST_BIND_ADDR" required:"true"`
+	BindAddr     string        `envconfig:"TODOLIST_BIND_ADDR" required:"true"`
+	WriteTimeout time.Duration `envconfig:"TODOLIST_WRITE_TIMEOUT" required:"true"`
 }
 type Token struct {
 }
 
 func MustNew() *Config {
 	//TODO
-	if err := godotenv.Load("./../../.env"); err != nil {
+	if err := godotenv.Load("./../.env"); err != nil {
 		log.Fatalf("failed to load configuration: %v\n", err)
 	}
 

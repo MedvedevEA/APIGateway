@@ -5,17 +5,19 @@ import (
 )
 
 func (s *Service) AddTask(ctx *fiber.Ctx) error {
-	return ctx.SendStatus(500)
+	return s.todolist.Redirect(ctx, "tasks")
 }
+
 func (s *Service) GetTask(ctx *fiber.Ctx) error {
-	return ctx.SendStatus(500)
+	return s.todolist.Redirect(ctx, "tasks")
 }
 func (s *Service) GetTasks(ctx *fiber.Ctx) error {
-	return ctx.SendStatus(500)
+	return s.todolist.Redirect(ctx, "tasks")
+
 }
 func (s *Service) UpdateTask(ctx *fiber.Ctx) error {
-	return ctx.SendStatus(500)
+	return s.todolist.Redirect(ctx, "tasks")
 }
 func (s *Service) RemoveTask(ctx *fiber.Ctx) error {
-	return ctx.SendStatus(500)
+	return s.todolist.Redirect(ctx, "tasks")
 }

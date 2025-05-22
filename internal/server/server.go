@@ -36,8 +36,8 @@ func MustNew(svc *service.Service, lg *slog.Logger, cfg *config.Server) *Server 
 	apiGroup := app.Group("/api")
 	v1Group := apiGroup.Group("/v1")
 	//public
-	v1Group.Post("/login", func(ctx *fiber.Ctx) error { return ctx.SendStatus(fiber.StatusNotImplemented) })
-	v1Group.Post("/registration", func(ctx *fiber.Ctx) error { return ctx.SendStatus(fiber.StatusNotImplemented) })
+	v1Group.Post("/login", svc.Login)
+	v1Group.Post("/registration", svc.Registration)
 	//refresh
 	v1Group.Post(
 		"/refresh",

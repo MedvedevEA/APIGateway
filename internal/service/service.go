@@ -2,17 +2,18 @@ package service
 
 import (
 	"log/slog"
-	repoAuth "ppApiGatewayService/internal/repository/auth"
-	repoTodolist "ppApiGatewayService/internal/repository/todolist"
+	"ppApiGatewayService/internal/todolist"
+
+	proto "github.com/MedvedevEA/ppProtos/gen/auth"
 )
 
 type Service struct {
-	auth     repoAuth.Repository
-	todolist repoTodolist.Repository
+	auth     proto.AuthServiceClient
+	todolist todolist.Repository
 	lg       *slog.Logger
 }
 
-func MustNew(auth repoAuth.Repository, todolist repoTodolist.Repository, lg *slog.Logger) *Service {
+func MustNew(auth proto.AuthServiceClient, todolist todolist.Repository, lg *slog.Logger) *Service {
 	return &Service{
 		auth,
 		todolist,
